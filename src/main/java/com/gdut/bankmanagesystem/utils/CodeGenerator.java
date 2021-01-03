@@ -1,4 +1,4 @@
-package com.gdut.bankmanagesystem;
+package com.gdut.bankmanagesystem.utils;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * mybatis-plus逆向工程工具类
+ */
 public class CodeGenerator {
 
     /**
@@ -46,6 +49,7 @@ public class CodeGenerator {
         globalConfig.setOutputDir(projectPath + "/src/main/java");
         //是否覆盖文件
         globalConfig.setFileOverride(true);
+        globalConfig.setAuthor("blue");
         //生成后打开文件
         globalConfig.setOpen(false);
         mpg.setGlobalConfig(globalConfig);
@@ -56,8 +60,8 @@ public class CodeGenerator {
         dataSourceConfig.setDbType(DbType.MYSQL);
         // 自定义数据类型转换
         dataSourceConfig.setTypeConvert(new MySqlTypeConvert());
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/mp?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false");
-        dataSourceConfig.setDriverName("com.mysql.jdbc.Driver");
+        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/bank_management_sys?characterEncoding=utf-8&serverTimezone=GMT%2B8&useSSL=false");
+        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
         dataSourceConfig.setUsername("root");
         dataSourceConfig.setPassword("123456");
         mpg.setDataSource(dataSourceConfig);
@@ -66,7 +70,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(scanner("模块名"));
         //父包名。如果为空，将下面子包名必须写全部， 否则就只需写子包名
-        pc.setParent("com.gdut.bankmanagesystem.mapper");
+        pc.setParent("com.gdut.bankmanagesystem");
         mpg.setPackageInfo(pc);
 
         /**
