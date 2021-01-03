@@ -18,6 +18,8 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public String id;
+
     /**
      * 部门名称
      */

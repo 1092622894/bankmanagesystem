@@ -18,6 +18,8 @@ public class Contacts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public String id;
+
     /**
      * 联系人姓名
      */
