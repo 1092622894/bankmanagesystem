@@ -1,7 +1,7 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.gdut.bankmanagesystem.entity.Employee;
-import com.gdut.bankmanagesystem.Test.mapper.EmployeeMapper;
+import com.gdut.bankmanagesystem.mapper.EmployeeMapper;
 import com.gdut.bankmanagesystem.service.IEmployeeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

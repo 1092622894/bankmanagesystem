@@ -1,7 +1,7 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.gdut.bankmanagesystem.entity.Account;
-import com.gdut.bankmanagesystem.Test.mapper.AccountMapper;
+import com.gdut.bankmanagesystem.mapper.AccountMapper;
 import com.gdut.bankmanagesystem.service.IAccountService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

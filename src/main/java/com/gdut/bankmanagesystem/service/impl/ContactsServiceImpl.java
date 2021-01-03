@@ -1,7 +1,7 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.gdut.bankmanagesystem.entity.Contacts;
-import com.gdut.bankmanagesystem.Test.mapper.ContactsMapper;
+import com.gdut.bankmanagesystem.mapper.ContactsMapper;
 import com.gdut.bankmanagesystem.service.IContactsService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

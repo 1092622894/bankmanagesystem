@@ -1,7 +1,7 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.gdut.bankmanagesystem.entity.Repay;
-import com.gdut.bankmanagesystem.Test.mapper.RepayMapper;
+import com.gdut.bankmanagesystem.mapper.RepayMapper;
 import com.gdut.bankmanagesystem.service.IRepayService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.gdut.bankmanagesystem.entity.Department;
-import com.gdut.bankmanagesystem.Test.mapper.DepartmentMapper;
+import com.gdut.bankmanagesystem.mapper.DepartmentMapper;
 import com.gdut.bankmanagesystem.service.IDepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

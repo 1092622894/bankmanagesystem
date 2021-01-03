@@ -8,8 +8,6 @@ import javax.annotation.Resource;
 @SpringBootTest
 class BankmanagesystemApplicationTests {
 
-    @Resource
-    private UserMapper userMapper;
 
     @Test
     void contextLoads() {
