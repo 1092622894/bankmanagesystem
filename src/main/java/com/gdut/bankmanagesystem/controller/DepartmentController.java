@@ -1,20 +1,80 @@
 package com.gdut.bankmanagesystem.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.alibaba.fastjson.JSON;
+import com.gdut.bankmanagesystem.entity.Department;
+import com.gdut.bankmanagesystem.entity.JSONResponse;
+import com.gdut.bankmanagesystem.entity.view.DepartmentView;
+import com.gdut.bankmanagesystem.service.IDepartmentService;
+import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ * 部门管理
  * @author blue
  * @since 2021-01-03
  */
 @RestController
-@RequestMapping("/Test/department")
+@RequestMapping("/api/department")
 public class DepartmentController {
+
+    @Resource
+    private IDepartmentService iDepartmentService;
+
+    /**
+     * 添加部门
+     * @param department 部门信息
+     * @return
+     */
+    @PostMapping("/addDepartment")
+    public JSONResponse addDepartment(@RequestBody Department department) {
+        department.setId(SnowFlakeUtil.getNextSnowFlakeId());
+        iDepartmentService.save(department);
+        return JSONResponse.success();
+    }
+
+    /**
+     * 查询部门信息
+     * @param id 部门id
+     * @return
+     */
+    @GetMapping("/queryDepartmentById/{id}")
+    public JSONResponse queryDepartmentById(@PathVariable Long id) {
+        DepartmentView departmentView = iDepartmentService.queryDepartmentInfoById(id);
+        return JSONResponse.success(departmentView);
+    }
+
+    /**
+     * 查询所有部门信息
+     * @return
+     */
+    @GetMapping("/queryAllDepartment")
+    public JSONResponse queryAllDepartment() {
+        List<DepartmentView> departmentViews = iDepartmentService.queryAllDepartment();
+        return JSONResponse.success(departmentViews);
+    }
+
+    /**
+     * 根据部门id删除部门
+     * @return
+     */
+    @GetMapping("/deleteDepartmentById/{id}")
+    public JSONResponse deleteDepartmentById(@PathVariable Long id) {
+        iDepartmentService.removeById(id);
+        return JSONResponse.success();
+    }
+
+    /**
+     * 根据部门id更新部门信息
+     * @return
+     */
+    @PostMapping("/updateDepartmentById")
+    public JSONResponse updateDepartmentById(@RequestBody Department department) {
+        iDepartmentService.updateById(department);
+        return JSONResponse.success();
+    }
 
 }

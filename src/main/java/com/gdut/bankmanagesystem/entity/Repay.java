@@ -1,15 +1,13 @@
 package com.gdut.bankmanagesystem.entity;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 
- * </p>
- *
  * @author blue
  * @since 2021-01-03
  */
@@ -24,12 +22,12 @@ public class Repay implements Serializable {
     /**
      * 还款时间
      */
-    private LocalDateTime repayTime;
+    private Timestamp repayTime;
 
     /**
      * 还款金额
      */
-    private Double repayAmount;
+    private BigDecimal repayAmount;
 
     /**
      * 贷款表主键id

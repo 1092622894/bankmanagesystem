@@ -3,6 +3,8 @@ package com.gdut.bankmanagesystem.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.gdut.bankmanagesystem.entity.Employee;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口

@@ -7,15 +7,18 @@ server:
 
 spring:
   datasource:
-    username: root
+    username: kgb
+    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
     type: com.mchange.v2.c3p0.ComboPooledDataSource
-    password: 123456
-    url: jdbc:mysql://localhost:3306/bank_management_sys?useUnicode=true&allowMultiQueries=true&useAffectedRows=true&characterEncoding=UTF-8&serverTimezone=GMT
+    url: jdbc:mysql://116.62.12.63:3308/bank_management_sys?useUnicode=true&allowMultiQueries=true&useAffectedRows=true&characterEncoding=UTF-8&serverTimezone=GMT
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true #返回时间戳为long型
 
 mybatis-plus:
   mapper-locations: classpath:mybatis/mapper/*.xml
-  type-aliases-package: com.gdut.bankmanagesystem.model
+  type-aliases-package: com.gdut.bankmanagesystem.entity
 
   configuration:
     default-executor-type: simple
@@ -25,5 +28,5 @@ logging:
   file:
     path: D:/logs/bankmanagesystem
   level:
-    root: debug
+    root: info
 

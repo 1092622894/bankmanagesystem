@@ -1,5 +1,7 @@
 package com.gdut.bankmanagesystem.entity;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -19,17 +21,17 @@ public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private Long id;
 
     /**
      * 余额
      */
-    private Double balance;
+    private BigDecimal balance;
 
     /**
      * 储蓄账户的利率
      */
-    private Double interestRate;
+    private BigDecimal interestRate;
 
     /**
      * 储蓄账户的货币类型
@@ -39,12 +41,12 @@ public class Account implements Serializable {
     /**
      * 支票账户的透支额度
      */
-    private Double overdraft;
+    private BigDecimal overdraft;
 
     /**
      * 最近访问时间
      */
-    private LocalDateTime recentTime;
+    private Timestamp recentTime;
 
     /**
      * 账户类型（储蓄账户0/ 支票账户1）
@@ -54,12 +56,12 @@ public class Account implements Serializable {
     /**
      * 银行主键id
      */
-    private String bId;
+    private Long bId;
 
     /**
      * 用户主键id
      */
-    private String cId;
+    private Long cId;
 
 
 }

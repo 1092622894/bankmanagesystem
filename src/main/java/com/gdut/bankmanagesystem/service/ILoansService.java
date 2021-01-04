@@ -14,7 +14,11 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ILoansService extends IService<Loans> {
 
-
-    boolean approveSum(ApproveLoanOrder order);
+    /**
+     * 批准贷款单
+     * @param order
+     * @return
+     */
+    Boolean approveSum(ApproveLoanOrder order);
 
 }

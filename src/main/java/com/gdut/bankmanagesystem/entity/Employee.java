@@ -1,5 +1,6 @@
 package com.gdut.bankmanagesystem.entity;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import lombok.Data;
@@ -19,7 +20,7 @@ public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String id;
+    public Long id;
 
     /**
      * 员工姓名
@@ -39,17 +40,19 @@ public class Employee implements Serializable {
     /**
      * 入职时间
      */
-    private LocalDateTime entryTime;
+    private Timestamp entryTime;
 
     /**
      * 角色（普通员工0/ 部门经理1）
      */
-    private String role;
+    private int role;
 
     /**
      * 部门id
      */
-    private String dId;
+    private Long dId;
+
+
 
 
 }

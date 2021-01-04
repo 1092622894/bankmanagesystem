@@ -6,6 +6,8 @@ import com.gdut.bankmanagesystem.entity.ApproveLoanOrder;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.entity.Loans;
 import com.gdut.bankmanagesystem.service.ILoansService;
+import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
+import com.gdut.bankmanagesystem.utils.UUIDUtils;
 import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +16,7 @@ import java.sql.Wrapper;
 import java.util.List;
 
 /**
- * 贷款处理
+ * 贷款管理
  * @author blue
  * @since 2021-01-03
  */
@@ -61,6 +63,7 @@ public class LoansController {
      */
     @PostMapping("/approveSum")
     public JSONResponse approveSum(ApproveLoanOrder order) {
+        order.setId(UUIDUtils.getUUID());
         iLoansService.approveSum(order);
         return JSONResponse.success();
     }
