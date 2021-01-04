@@ -21,4 +21,5 @@ public class User {
     private Integer role;
     private Long cId;
     private Long eId;
+    private Long aId;
 }

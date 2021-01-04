@@ -23,10 +23,4 @@ public interface IClientService extends IService<Client> {
      */
     Boolean register(RegisterDTO registerDTO, User registerUser);
 
-    /**
-     * 客户登录
-     * @param client 客户登录信息
-     * @return 客户信息
-     */
-    User login(User client);
 }

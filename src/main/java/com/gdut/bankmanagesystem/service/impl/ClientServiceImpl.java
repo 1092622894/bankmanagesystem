@@ -65,18 +65,9 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
                 registerUser.setId(uid);
                 return Constants.INSERT_SUCCESS.equals(userMapper.insert(new User(uid,
                         registerDTO.getPassword(), Integer.valueOf(Constants.CLIENT_ROLE),
-                        registerDTO.getClient().getId(), null)));
+                        registerDTO.getClient().getId(), null, null)));
             }
         }
     }
-
-    @Override
-    public User login(User user) {
-        user.setPassword(new String(DigestUtils.md5Digest(user.getPassword().getBytes())));
-        User result = userMapper.selectOne(new QueryWrapper<>(user, "id", "password", "role"));
-        Assert.notNull(result, "登录信息有误，请重新填写");
-        return result;
-    }
-
 
 }
