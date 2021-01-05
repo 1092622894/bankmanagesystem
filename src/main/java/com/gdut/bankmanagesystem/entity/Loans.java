@@ -3,6 +3,9 @@ package com.gdut.bankmanagesystem.entity;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -20,7 +23,9 @@ public class Loans implements Serializable {
 
     /**
      * 贷款账户
+     * aId转JSON变为了aid，设置一下，改为aId
      */
+    @JsonProperty("aId")
     private Long aId;
 
     /**
