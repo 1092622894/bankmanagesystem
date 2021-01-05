@@ -1,9 +1,13 @@
 package com.gdut.bankmanagesystem.entity;
 
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.gdut.bankmanagesystem.entity.dto.AccountDTO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
  * <p>
@@ -13,23 +17,24 @@ import lombok.EqualsAndHashCode;
  * @author blue
  * @since 2021-01-03
  */
+@NoArgsConstructor
 @Data
 @EqualsAndHashCode(callSuper = false)
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private Long id;
 
     /**
      * 余额
      */
-    private Double balance;
+    private BigDecimal balance;
 
     /**
      * 储蓄账户的利率
      */
-    private Double interestRate;
+    private BigDecimal interestRate;
 
     /**
      * 储蓄账户的货币类型
@@ -39,27 +44,32 @@ public class Account implements Serializable {
     /**
      * 支票账户的透支额度
      */
-    private Double overdraft;
+    private BigDecimal overdraft;
 
     /**
      * 最近访问时间
      */
-    private LocalDateTime recentTime;
+    private Timestamp recentTime;
 
     /**
      * 账户类型（储蓄账户0/ 支票账户1）
      */
-    private String type;
+    private int type;
 
     /**
      * 银行主键id
      */
-    private String bId;
+    private Long bId;
 
     /**
      * 用户主键id
      */
-    private String cId;
+    private Long cId;
 
+
+    public Account(AccountDTO accountDTO) {
+        this.id = accountDTO.getId();
+        this.balance = accountDTO.getAmount();
+    }
 
 }

@@ -18,8 +18,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     protected void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(jwtInterceptor())
-                .addPathPatterns("/**");
+//        registry.addInterceptor(jwtInterceptor())
+//                .addPathPatterns("/**");
     }
 
     @Bean

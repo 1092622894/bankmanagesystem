@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdut.bankmanagesystem.mapper.LoansMapper">
+    <resultMap id="LoansResult" type="Loans"/>
 
+    <select id="queryAllLoan" parameterType="Long" resultMap="LoansResult">
+        select l.* from loans l left join account a
+        on l.a_id = a.id left join bank b on b.id = a.b_id
+        where b.id = #{id}
+    </select>
 </mapper>

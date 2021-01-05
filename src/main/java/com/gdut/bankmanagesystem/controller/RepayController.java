@@ -4,19 +4,17 @@ package com.gdut.bankmanagesystem.controller;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.entity.Repay;
 import com.gdut.bankmanagesystem.service.IRepayService;
+import com.gdut.bankmanagesystem.utils.UUIDUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 /**
- * <p>
- *  前端控制器
- * </p>
- *
+ * 还款管理
  * @author blue
  * @since 2021-01-03
  */
@@ -24,11 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/repay")
 public class RepayController {
 
-    @Autowired
+    @Resource
     private IRepayService iRepayService;
+    @Resource
+    private UUIDUtil uuidUtil;
 
     @PostMapping("/repay")
     public JSONResponse repay(Repay repay) {
+        repay.setId(uuidUtil.getUUID());
         iRepayService.repay(repay);
         return JSONResponse.success();
     }

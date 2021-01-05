@@ -1,13 +1,12 @@
 package com.gdut.bankmanagesystem.entity;
 
 import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 /**
- * <p>
- * 
- * </p>
  *
  * @author blue
  * @since 2021-01-03
@@ -18,7 +17,7 @@ public class Department implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String id;
+    public Long id;
 
     /**
      * 部门名称
@@ -28,12 +27,42 @@ public class Department implements Serializable {
     /**
      * 部门所在的支行id
      */
-    private String bId;
+    private Long bId;
 
     /**
      * 部门经理id
      */
-    private String eId;
+    private Long eId;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getbId() {
+        return bId;
+    }
+
+    public void setbId(Long bId) {
+        this.bId = bId;
+    }
+
+    public Long geteId() {
+        return eId;
+    }
+
+    public void seteId(Long eId) {
+        this.eId = eId;
+    }
 }

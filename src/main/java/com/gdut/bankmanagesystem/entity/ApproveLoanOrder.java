@@ -3,6 +3,9 @@ package com.gdut.bankmanagesystem.entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
+
 /**
  * 员工每次批准贷款的流水单
  */
@@ -17,7 +20,7 @@ public class ApproveLoanOrder {
     /**
      * 账户id
      */
-    private String aId;
+    private Long aId;
 
     /**
      * 贷款id
@@ -25,13 +28,18 @@ public class ApproveLoanOrder {
     private String lId;
 
     /**
+     * 贷款分行id
+     */
+    private Long bId;
+
+    /**
      * 批准金额
      */
-    private Double sum;
+    private BigDecimal sum;
 
     /**
      * 批准时间
      */
-    private Long timestamp;
+    private Timestamp timestamp;
 
 }

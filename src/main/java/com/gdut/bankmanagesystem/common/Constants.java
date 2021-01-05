@@ -1,13 +1,19 @@
 package com.gdut.bankmanagesystem.common;
 
+import java.math.BigDecimal;
+
 /**
- * @author honzooban
- * @version 1.0.0
- * @ClassName Constant.java
- * @Description
- * @createTime 2021年01月04日 01:14:00
+ * @auther: blue
+ * @Date: 2021/1/4 1:43
+ * @ClassName Constants
+ * @Description: TODO
+ * @version: 1.0
  */
 public class Constants {
+
+    public static final BigDecimal ZERO = new BigDecimal(0);
+
+
 
     public static final Integer INSERT_SUCCESS = 1;
 
@@ -21,4 +27,38 @@ public class Constants {
     public static final String EMPLOYEE_ROLE = "1";
     public static final String MANAGER_ROLE = "2";
     public static final String BANK_ADMIN_ROLE = "3";
+
+    public static class LoanConstant {
+
+        /**
+         * 批准贷款
+         */
+        public static final int AGREE_LOAN = 1;
+
+        /**
+         * 未处理贷款
+         */
+        public static final int UNTREADTED = 0;
+
+        /**
+         * 拒绝贷款
+         */
+        public static final int REFUSE_LOAN = -1;
+
+        /**
+         * 贷款未发放
+         */
+        public static final int NOT_ISSUED = 0;
+
+        /**
+         * 贷款发放中
+         */
+        public static final int ISSUED = 1;
+
+        /**
+         * 贷款发放完成
+         */
+        public static final int ISSUED_FINISH = 2;
+    }
+
 }

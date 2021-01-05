@@ -13,4 +13,17 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IAccountService extends IService<Account> {
 
+    /**
+     * 用户充值
+     * @param account 充值信息
+     * @return
+     */
+    Boolean rechargeAccount(Account account);
+
+    /**
+     * 取款
+     * @return
+     */
+    Boolean drawAccount(Account account);
+
 }

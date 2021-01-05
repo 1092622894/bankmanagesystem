@@ -5,6 +5,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import com.gdut.bankmanagesystem.common.exception.CustomException;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +55,7 @@ public class JwtUtil {
             verifier.verify(token);
             return true;
         } catch (JWTVerificationException e) {
-            throw new RuntimeException("token无效，请重新获取");
+            throw new CustomException("token无效，请重新获取");
         }
     }
 
