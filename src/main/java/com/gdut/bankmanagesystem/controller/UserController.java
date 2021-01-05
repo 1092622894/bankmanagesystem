@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @createTime 2021年01月04日 17:01:00
  */
 @RestController
-@RequestMapping("user")
+@RequestMapping("/api/user")
 public class UserController {
 
     final JwtUtil jwtUtil;
@@ -58,6 +58,8 @@ public class UserController {
     public JSONResponse login(@RequestBody User user) {
         User result = userService.login(user);
         String sign = jwtUtil.sign(JSON.toJSONString(new JwtTokenDTO(result.getId(), result.getRole())));
-        return JSONResponse.success("登录成功", new LoginVo(sign, userService.getUserMessage(result)));
+        Object userMessage = userService.getUserMessage(result);
+        Long bankId = userService.getBankId(userMessage);
+        return JSONResponse.success("登录成功", new LoginVo(sign, userMessage, bankId));
     }
 }

@@ -16,6 +16,8 @@ public class Constants {
 
 
     public static final Integer INSERT_SUCCESS = 1;
+    public static final Integer DELETE_SUCCESS = 1;
+    public static final Integer UPDATE_SUCCESS = 1;
 
     /**
      * CLIENT_ROLE 客户角色
@@ -27,6 +29,17 @@ public class Constants {
     public static final String EMPLOYEE_ROLE = "1";
     public static final String MANAGER_ROLE = "2";
     public static final String BANK_ADMIN_ROLE = "3";
+
+    /**
+     * ACCOUNT_STATUS_NOT_ISSUED 账户已申请
+     * ACCOUNT_STATUS_PERMIT 同意开户
+     * ACCOUNT_STATUS_REFUSE 拒绝开户
+     */
+    public static final Integer ACCOUNT_STATUS_NOT_ISSUED = 0;
+    public static final Integer ACCOUNT_STATUS_PERMIT = 1;
+    public static final Integer ACCOUNT_STATUS_REFUSE = 2;
+    public static final Integer SAVING_ACCOUNT = 0;
+    public static final Integer CHEQUE_ACCOUNT = 1;
 
     public static class LoanConstant {
 

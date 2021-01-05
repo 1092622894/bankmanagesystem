@@ -2,6 +2,9 @@ package com.gdut.bankmanagesystem.service;
 
 import com.gdut.bankmanagesystem.entity.Account;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gdut.bankmanagesystem.entity.dto.ApplyAccountDTO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -26,4 +29,7 @@ public interface IAccountService extends IService<Account> {
      */
     Boolean drawAccount(Account account);
 
+    void applyAccount(ApplyAccountDTO client);
+
+    List<Account> listAccount(Long client);
 }

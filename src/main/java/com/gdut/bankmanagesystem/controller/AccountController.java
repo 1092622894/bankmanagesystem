@@ -3,8 +3,10 @@ package com.gdut.bankmanagesystem.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.gdut.bankmanagesystem.entity.Account;
+import com.gdut.bankmanagesystem.entity.Client;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.entity.dto.AccountDTO;
+import com.gdut.bankmanagesystem.entity.dto.ApplyAccountDTO;
 import com.gdut.bankmanagesystem.service.IAccountService;
 import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * @author blue
@@ -67,5 +70,28 @@ public class AccountController {
         iAccountService.drawAccount(new Account(accountDTO));
         return JSONResponse.success();
     }
+
+    /**
+     * 客户申请开户
+     * @param applyAccountDTO 客户信息
+     * @return
+     */
+    @PostMapping("/applyAccount")
+    public JSONResponse applyAccount(@RequestBody ApplyAccountDTO applyAccountDTO) {
+        iAccountService.applyAccount(applyAccountDTO);
+        return JSONResponse.success();
+    }
+
+    /**
+     * 客户查看自己名下的账户
+     * @param id 客户id
+     * @return
+     */
+    @GetMapping("/listAccount/{id}")
+    public JSONResponse listAccount(@PathVariable("id") Long id) {
+        List<Account> result = iAccountService.listAccount(id);
+        return JSONResponse.success(result);
+    }
+
 
 }

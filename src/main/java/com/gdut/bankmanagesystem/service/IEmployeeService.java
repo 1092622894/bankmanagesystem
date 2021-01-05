@@ -1,5 +1,6 @@
 package com.gdut.bankmanagesystem.service;
 
+import com.gdut.bankmanagesystem.entity.Account;
 import com.gdut.bankmanagesystem.entity.Employee;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -16,4 +17,10 @@ import java.util.List;
 public interface IEmployeeService extends IService<Employee> {
 
     List<Employee> queryEmployeeByBankId(Long id);
+
+    void handleApplyAccount(Account account);
+
+    List<Account> listApplyAccount(Long bankId);
+
+    void deleteAccount(Long accountId);
 }

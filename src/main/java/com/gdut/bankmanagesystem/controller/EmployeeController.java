@@ -3,11 +3,13 @@ package com.gdut.bankmanagesystem.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gdut.bankmanagesystem.entity.Account;
 import com.gdut.bankmanagesystem.entity.Department;
 import com.gdut.bankmanagesystem.entity.Employee;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.service.IEmployeeService;
 import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
+import jdk.nashorn.internal.objects.annotations.Getter;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -96,6 +98,33 @@ public class EmployeeController {
     public JSONResponse queryEmployeeByBankId(@PathVariable Long id) {
         List<Employee> employees = iEmployeeService.queryEmployeeByBankId(id);
         return JSONResponse.success(employees);
+    }
+
+    /**
+     * 获取用户的开户申请
+     * @return
+     */
+    @GetMapping("/listApplyAccount/{bId}")
+    public JSONResponse listApplyAccount(@PathVariable("bId") Long bankId) {
+        List<Account> result = iEmployeeService.listApplyAccount(bankId);
+        return JSONResponse.success(result);
+    }
+
+    /**
+     * 处理客户的开户申请
+     * @param account 账户信息
+     * @return
+     */
+    @PostMapping("/handleApplyAccount")
+    public JSONResponse handleApplyAccount(@RequestBody Account account) {
+        iEmployeeService.handleApplyAccount(account);
+        return JSONResponse.success();
+    }
+
+    @GetMapping("/deleteAccount/{id}")
+    public JSONResponse deleteAccount(@PathVariable("id") Long accountId) {
+        iEmployeeService.deleteAccount(accountId);
+        return JSONResponse.success();
     }
 
 }

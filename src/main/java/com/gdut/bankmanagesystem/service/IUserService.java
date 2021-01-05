@@ -25,4 +25,6 @@ public interface IUserService extends IService<User> {
      * @return 用户详细信息
      */
     Object getUserMessage(User user);
+
+    Long getBankId(Object userMessage);
 }

@@ -1,6 +1,8 @@
 package com.gdut.bankmanagesystem.entity;
 
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -13,6 +15,7 @@ import lombok.EqualsAndHashCode;
  * @since 2021-01-03
  */
 @Data
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class Contacts implements Serializable {
 

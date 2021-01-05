@@ -1,8 +1,11 @@
 package com.gdut.bankmanagesystem.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gdut.bankmanagesystem.common.Constants;
+import com.gdut.bankmanagesystem.entity.Department;
+import com.gdut.bankmanagesystem.entity.Employee;
 import com.gdut.bankmanagesystem.entity.Repay;
 import com.gdut.bankmanagesystem.entity.User;
 import com.gdut.bankmanagesystem.mapper.*;
@@ -13,6 +16,9 @@ import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author honzooban
@@ -31,12 +37,16 @@ public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements I
     EmployeeMapper employeeMapper;
     @Resource
     AdminMapper adminMapper;
+    @Resource
+    DepartmentMapper departmentMapper;
 
     @Override
     public User login(User user) {
         user.setPassword(new String(DigestUtils.md5Digest(user.getPassword().getBytes())));
-        User result = userMapper.selectOne(new QueryWrapper<>(user, "id", "password", "role", "c_id", "e_id", "a_id"));
-        Assert.notNull(result, "登录信息有误，请重新填写");
+        User result = userMapper.selectById(user.getId());
+        if (!user.getPassword().equals(result.getPassword())) {
+            throw new RuntimeException("登录信息有误，请重新填写");
+        }
         return result;
     }
 
@@ -53,5 +63,12 @@ public class IUserServiceImpl extends ServiceImpl<UserMapper, User> implements I
             default:
                 throw new RuntimeException("权限异常，请重新登录");
         }
+    }
+
+    @Override
+    public Long getBankId(Object userMessage) {
+        Employee employee = JSON.parseObject(JSON.toJSON(userMessage).toString(), Employee.class);
+        Department department = departmentMapper.selectById(employee.getdId());
+        return department.getbId();
     }
 }

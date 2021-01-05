@@ -1,6 +1,9 @@
 package com.gdut.bankmanagesystem.entity;
 
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,6 +17,7 @@ import lombok.EqualsAndHashCode;
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
+@AllArgsConstructor
 public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -43,6 +47,7 @@ public class Client implements Serializable {
     /**
      * contacts表主键id
      */
+    @JsonProperty("cId")
     private Long cId;
 
 

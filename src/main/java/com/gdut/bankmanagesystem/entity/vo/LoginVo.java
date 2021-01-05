@@ -17,5 +17,6 @@ public class LoginVo {
 
     private String token;
     private Object user;
+    private Long bankId;
 
 }

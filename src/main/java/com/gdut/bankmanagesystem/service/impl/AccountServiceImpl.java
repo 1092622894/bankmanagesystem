@@ -1,21 +1,24 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.gdut.bankmanagesystem.common.Constants;
 import com.gdut.bankmanagesystem.common.exception.CustomException;
 import com.gdut.bankmanagesystem.entity.Account;
-import com.gdut.bankmanagesystem.entity.Bank;
+import com.gdut.bankmanagesystem.entity.dto.ApplyAccountDTO;
 import com.gdut.bankmanagesystem.mapper.AccountMapper;
-import com.gdut.bankmanagesystem.mapper.BankMapper;
 import com.gdut.bankmanagesystem.service.IAccountService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -32,6 +35,11 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
 
     @Resource
     private AccountMapper accountMapper;
+    final SnowFlakeUtil snowFlakeUtil;
+
+    public AccountServiceImpl(SnowFlakeUtil snowFlakeUtil) {
+        this.snowFlakeUtil = snowFlakeUtil;
+    }
 
     @Transactional
     @Override
@@ -61,6 +69,39 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         account.setBalance(remainAmount);
         accountMapper.update(account, updateAccount);
         return true;
+    }
+
+    @Override
+    public void applyAccount(ApplyAccountDTO applyAccountDTO) {
+        Map<String, Object> selectMap = new HashMap<>(2);
+        selectMap.put("c_id", applyAccountDTO.getCId());
+        selectMap.put("b_id", applyAccountDTO.getBId());
+        selectMap.put("type", applyAccountDTO.getAccountType());
+        List<Account> accounts = accountMapper.selectByMap(selectMap);
+        if (accounts.size() == 1) {
+            throw new CustomException("该用户在该银行下已经注册过同类的账户");
+        }
+        Account account = new Account();
+        account.setId(snowFlakeUtil.getNextSnowFlakeId());
+        account.setBalance(BigDecimal.ZERO);
+        account.setStatus(Constants.ACCOUNT_STATUS_NOT_ISSUED);
+        account.setBId(applyAccountDTO.getBId());
+        account.setCId(applyAccountDTO.getCId());
+        if (Constants.SAVING_ACCOUNT.equals(applyAccountDTO.getAccountType())) {
+            account.setInterestRate(new BigDecimal(0.12));
+            account.setCurrencyType("人民币");
+        } else if (Constants.CHEQUE_ACCOUNT.equals(applyAccountDTO.getAccountType())) {
+            account.setOverdraft(new BigDecimal(1000));
+        }
+        accountMapper.insert(account);
+    }
+
+    @Override
+    public List<Account> listAccount(Long id) {
+        Map<String, Object> selectMap = new HashMap<>(2);
+        selectMap.put("c_id", id);
+        selectMap.put("status", Constants.ACCOUNT_STATUS_PERMIT);
+        return accountMapper.selectByMap(selectMap);
     }
 
 

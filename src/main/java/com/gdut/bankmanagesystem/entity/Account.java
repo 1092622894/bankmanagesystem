@@ -56,6 +56,10 @@ public class Account implements Serializable {
      */
     private int type;
 
+    private Timestamp openTime;
+
+    private Integer status;
+
     /**
      * 银行主键id
      */
