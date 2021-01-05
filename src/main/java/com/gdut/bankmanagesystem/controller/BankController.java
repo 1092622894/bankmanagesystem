@@ -24,6 +24,8 @@ public class BankController {
 
     @Resource
     private IBankService iBankService;
+    @Resource
+    private SnowFlakeUtil snowFlakeUtil;
 
     /**
      * 查询某个分行信息
@@ -53,7 +55,7 @@ public class BankController {
      */
     @PostMapping("/addBank")
     public JSONResponse addBank(@RequestBody Bank bank) {
-        bank.setId(SnowFlakeUtil.getNextSnowFlakeId());
+        bank.setId(snowFlakeUtil.getNextSnowFlakeId());
         iBankService.save(bank);
         return JSONResponse.success();
     }
@@ -76,8 +78,10 @@ public class BankController {
      */
     @GetMapping("/deleteBankById/{id}")
     public JSONResponse deleteBankById(@PathVariable Long id) {
-        iBankService.removeById(id);
-        return JSONResponse.success();
+        if (iBankService.removeById(id)) {
+            return JSONResponse.success();
+        }
+        return JSONResponse.fail();
     }
 
 }

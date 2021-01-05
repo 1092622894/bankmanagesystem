@@ -18,7 +18,7 @@ public class Contacts implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String id;
+    public Long id;
 
     /**
      * 联系人姓名

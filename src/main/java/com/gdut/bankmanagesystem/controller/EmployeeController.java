@@ -1,6 +1,7 @@
 package com.gdut.bankmanagesystem.controller;
 
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdut.bankmanagesystem.entity.Department;
 import com.gdut.bankmanagesystem.entity.Employee;
@@ -23,7 +24,8 @@ public class EmployeeController {
 
     @Resource
     private IEmployeeService iEmployeeService;
-
+    @Resource
+    private SnowFlakeUtil snowFlakeUtil;
 
     /**
      * 添加员工
@@ -32,7 +34,8 @@ public class EmployeeController {
      */
     @PostMapping("/addEmployee")
     public JSONResponse addEmployee(@RequestBody Employee employee) {
-        employee.setId(SnowFlakeUtil.getNextSnowFlakeId());
+        System.out.println(JSON.toJSON(employee));
+        employee.setId(snowFlakeUtil.getNextSnowFlakeId());
         iEmployeeService.save(employee);
         return JSONResponse.success();
     }
@@ -44,6 +47,7 @@ public class EmployeeController {
      */
     @PostMapping("/updateEmployee")
     public JSONResponse updateEmployee(@RequestBody Employee employee) {
+        System.out.println(JSON.toJSON(employee));
         iEmployeeService.updateById(employee);
         return JSONResponse.success();
     }
@@ -78,8 +82,19 @@ public class EmployeeController {
     @GetMapping("/queryEmployeeByDepartmentId/{id}")
     public JSONResponse queryEmployeeByDepartmentId(@PathVariable Long id) {
         QueryWrapper<Employee> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("dId", id);
+        queryWrapper.eq("d_id", id);
         List<Employee> employees = iEmployeeService.list(queryWrapper);
+        return JSONResponse.success(employees);
+    }
+
+    /**
+     * 查询某分行下所有员工
+     * @param id 分行id
+     * @return
+     */
+    @GetMapping("/queryEmployeeByBankId/{id}")
+    public JSONResponse queryEmployeeByBankId(@PathVariable Long id) {
+        List<Employee> employees = iEmployeeService.queryEmployeeByBankId(id);
         return JSONResponse.success(employees);
     }
 

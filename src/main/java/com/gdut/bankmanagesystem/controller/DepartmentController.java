@@ -2,6 +2,7 @@ package com.gdut.bankmanagesystem.controller;
 
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.gdut.bankmanagesystem.entity.Department;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.entity.view.DepartmentView;
@@ -23,6 +24,8 @@ public class DepartmentController {
 
     @Resource
     private IDepartmentService iDepartmentService;
+    @Resource
+    private SnowFlakeUtil snowFlakeUtil;
 
     /**
      * 添加部门
@@ -31,7 +34,7 @@ public class DepartmentController {
      */
     @PostMapping("/addDepartment")
     public JSONResponse addDepartment(@RequestBody Department department) {
-        department.setId(SnowFlakeUtil.getNextSnowFlakeId());
+        department.setId(snowFlakeUtil.getNextSnowFlakeId());
         iDepartmentService.save(department);
         return JSONResponse.success();
     }
@@ -45,6 +48,19 @@ public class DepartmentController {
     public JSONResponse queryDepartmentById(@PathVariable Long id) {
         DepartmentView departmentView = iDepartmentService.queryDepartmentInfoById(id);
         return JSONResponse.success(departmentView);
+    }
+
+    /**
+     * 查询某个分行下所有部门
+     * @param id 分行id
+     * @return
+     */
+    @GetMapping("/queryAllDepartmentByBankId/{id}")
+    public JSONResponse queryAllDepartmentByBankId(@PathVariable Long id) {
+        QueryWrapper<Department> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("b_id", id);
+        List<Department> list = iDepartmentService.list(queryWrapper);
+        return JSONResponse.success(list);
     }
 
     /**

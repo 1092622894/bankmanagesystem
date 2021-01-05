@@ -1,17 +1,11 @@
 package com.gdut.bankmanagesystem.service.impl;
 
-import com.gdut.bankmanagesystem.entity.Bank;
 import com.gdut.bankmanagesystem.entity.Department;
-import com.gdut.bankmanagesystem.entity.Employee;
 import com.gdut.bankmanagesystem.entity.view.DepartmentView;
-import com.gdut.bankmanagesystem.mapper.BankMapper;
 import com.gdut.bankmanagesystem.mapper.DepartmentMapper;
-import com.gdut.bankmanagesystem.mapper.EmployeeMapper;
 import com.gdut.bankmanagesystem.service.IDepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gdut.bankmanagesystem.utils.SnowFlakeUtil;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.annotation.Resource;
@@ -30,10 +24,6 @@ public class DepartmentServiceImpl extends ServiceImpl<DepartmentMapper, Departm
 
     @Resource
     private DepartmentMapper departmentMapper;
-    @Resource
-    private EmployeeMapper employeeMapper;
-    @Resource
-    private BankMapper bankMapper;
 
     @Override
     public DepartmentView queryDepartmentInfoById(Long id) {

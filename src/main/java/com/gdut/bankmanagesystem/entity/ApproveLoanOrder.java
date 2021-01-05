@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 /**
  * 员工每次批准贷款的流水单
@@ -39,6 +40,6 @@ public class ApproveLoanOrder {
     /**
      * 批准时间
      */
-    private Long timestamp;
+    private Timestamp timestamp;
 
 }

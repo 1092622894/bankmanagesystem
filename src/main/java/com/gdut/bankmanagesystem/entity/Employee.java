@@ -1,10 +1,12 @@
 package com.gdut.bankmanagesystem.entity;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.io.Serializable;
+
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -40,6 +42,7 @@ public class Employee implements Serializable {
     /**
      * 入职时间
      */
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Timestamp entryTime;
 
     /**
@@ -52,7 +55,59 @@ public class Employee implements Serializable {
      */
     private Long dId;
 
+    public Long getId() {
+        return id;
+    }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Timestamp getEntryTime() {
+        return entryTime;
+    }
+
+    public void setEntryTime(Timestamp entryTime) {
+        this.entryTime = entryTime;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+
+    public Long getdId() {
+        return dId;
+    }
+
+    public void setdId(Long dId) {
+        this.dId = dId;
+    }
 }

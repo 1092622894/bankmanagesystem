@@ -13,7 +13,20 @@ public class Constants {
 
     public static final BigDecimal ZERO = new BigDecimal(0);
 
-    public static final int EQUAL = 0;
+
+
+    public static final Integer INSERT_SUCCESS = 1;
+
+    /**
+     * CLIENT_ROLE 客户角色
+     * EMPLOYEE_ROLE 普通员工角色
+     * MANAGER_ROLE 部门经理角色
+     * BANK_ADMIN_ROLE 银行管理员角色
+     */
+    public static final String CLIENT_ROLE = "0";
+    public static final String EMPLOYEE_ROLE = "1";
+    public static final String MANAGER_ROLE = "2";
+    public static final String BANK_ADMIN_ROLE = "3";
 
     public static class LoanConstant {
 

@@ -1,7 +1,6 @@
 package com.gdut.bankmanagesystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.gdut.bankmanagesystem.common.Constants;
 import com.gdut.bankmanagesystem.common.exception.CustomException;
 import com.gdut.bankmanagesystem.entity.Account;
 import com.gdut.bankmanagesystem.entity.ApproveLoanOrder;
@@ -13,16 +12,15 @@ import com.gdut.bankmanagesystem.mapper.BankMapper;
 import com.gdut.bankmanagesystem.mapper.LoansMapper;
 import com.gdut.bankmanagesystem.service.ILoansService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.mysql.cj.log.Log;
-import lombok.extern.log4j.Log4j;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.List;
 
-import static com.gdut.bankmanagesystem.common.Constants.EQUAL;
 import static com.gdut.bankmanagesystem.common.Constants.LoanConstant.ISSUED;
 import static com.gdut.bankmanagesystem.common.Constants.LoanConstant.ISSUED_FINISH;
 import static com.gdut.bankmanagesystem.common.Constants.ZERO;
@@ -55,29 +53,39 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, Loans> implements
         Bank bank = assertExistBank(order.getBId());
         BigDecimal remainProperty = assertBankEnoughProperty(order.getSum(), bank.getProperty());
         UpdateWrapper<Bank> updateBank = new UpdateWrapper<>();
-        updateBank.eq("id", bank.getId()).eq("property", bank.getProperty());
+        updateBank.eq("id", bank.getId())
+                .eq("property", bank.getProperty());
         bank.setProperty(remainProperty);
         bankMapper.update(bank, updateBank);
+
         log.info("尝试把id：{}的贷款单，更新贷款状态和贷款剩余未支付金额", order.getLId());
         Loans loan = assertExistLoan(order.getLId());
         BigDecimal amount = assertRightAmount(loan.getAmount(), order.getSum());
-        loan.setProgress(amount.compareTo(ZERO) == EQUAL ? ISSUED_FINISH : ISSUED);
+        loan.setProgress(amount.compareTo(ZERO) == 0 ? ISSUED_FINISH : ISSUED);
         UpdateWrapper<Loans> updateLoan = new UpdateWrapper<>();
-        updateLoan.eq("id", loan.getId()).eq("amount", loan.getAmount());
+        updateLoan.eq("id", loan.getId())
+                .eq("amount", loan.getAmount());
         loan.setAmount(amount);
         loansMapper.updateById(loan);
+
         log.info("给id：{}贷款账户打钱!", loan.getAId());
         Account account = assertExistAccount(order.getAId());
         BigDecimal balance = account.getBalance();
         balance = balance.add(order.getSum());
         UpdateWrapper<Account> updateAccount = new UpdateWrapper<>();
-        updateAccount.eq("id", account.getId()).eq("balance", account.getBalance());
+        updateAccount.eq("id", account.getId())
+                .eq("balance", account.getBalance());
         account.setBalance(balance);
         accountMapper.update(account, updateAccount);
-        //把批准贷款单插入数据库
+
         log.info("尝试把单号：{}批准贷款单插入数据库",order.getId());
         approveLoanOrderMapper.insert(order);
         return true;
+    }
+
+    @Override
+    public List<Loans> queryAllLoan(Long id) {
+        return loansMapper.queryAllLoan(id);
     }
 
     /**
@@ -120,7 +128,7 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, Loans> implements
      * 断言批准金额合理
      */
     private BigDecimal assertRightAmount(BigDecimal loanAmount, BigDecimal sum) {
-        if (loanAmount.compareTo(sum) < 1) {
+        if (loanAmount.compareTo(sum) < 0) {
             log.error("超出贷款余额范围！");
             throw new CustomException("超出贷款余额范围！");
         }

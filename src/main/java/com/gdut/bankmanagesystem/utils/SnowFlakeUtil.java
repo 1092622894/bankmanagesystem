@@ -1,66 +1,29 @@
 package com.gdut.bankmanagesystem.utils;
 
+import org.springframework.stereotype.Component;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/*
-各种表id
+/**
+ * 生成表id的工具类
+ * @author honzooban
  */
+@Component
 public class SnowFlakeUtil {
 
-        private static SnowflakeIdWorker snowflakeIdWorker = new SnowflakeIdWorker(12,23);
+    private static final SnowflakeIdWorker SNOWFLAKE_ID_WORKER = new SnowflakeIdWorker(12,23);
 
-        public static Long getNextSnowFlakeId(){
-            return snowflakeIdWorker.nextId();
-        }
-
-        public static List<Long> getSnowFlakeIdList(int size){
-            List<Long> list = new ArrayList<>(size);
-            for(int i=0;i<size;i++){
-                list.add(getNextSnowFlakeId());
-            }
-            return list;
-        }
-
-        /**
-         * 把long 64位数转化为长度为64的字节数组，数组每一项代表一个位,0或1
-         * @return
-         */
-        private static Byte[] longToBitArray(Long num){
-
-            String s = "";
-            while(num > 0)
-            {
-                s += String.valueOf(num % 2);
-                num = num /2;
-            }
-            for(int i=0;i<64-s.length();i++){
-                System.out.print("0");
-            }
-            for(int i = s.length()-1; i >= 0 ; i--)
-            {
-
-                System.out.print(s.charAt(i));
-            }
-
-            System.out.println(num);
-            long src = num;
-            for(int i=0;i<12;i++){
-                int n = (int) (src & 31);
-                src = src>>5;
-            }
-            int lastFourBit = (int) (src & 16);
-            System.out.println(lastFourBit);
-            Random random = new Random();
-            int lowBits = random.nextInt(65535) << 4;    // 最大16位,左移四位空出低4位
-            System.out.println(lowBits);
-            int twentyBit = lowBits | lastFourBit;  // 拼接成20位
-            System.out.println(twentyBit);
-            return null;
-        }
-
+    /**
+     * 获取下一个id
+     * @return id
+     */
+    public Long getNextSnowFlakeId(){
+        return SNOWFLAKE_ID_WORKER.nextId();
     }
+
+}
 
 /**
  * Twitter_Snowflake<br>
@@ -76,7 +39,6 @@ public class SnowFlakeUtil {
  */
 class SnowflakeIdWorker {
 
-    // ==============================Fields===========================================
     /** 开始时间截 (2015-01-01) */
     private final long twepoch = 1420041600000L;
 
@@ -119,7 +81,6 @@ class SnowflakeIdWorker {
     /** 上次生成ID的时间截 */
     private long lastTimestamp = -1L;
 
-    //==============================Constructors=====================================
     /**
      * 构造函数
      * @param workerId 工作ID (0~31)
@@ -136,7 +97,6 @@ class SnowflakeIdWorker {
         this.datacenterId = datacenterId;
     }
 
-    // ==============================Methods==========================================
     /**
      * 获得下一个ID (该方法是线程安全的)
      * @return SnowflakeId
@@ -168,9 +128,9 @@ class SnowflakeIdWorker {
         lastTimestamp = timestamp;
 
         //移位并通过或运算拼到一起组成64位的ID
-        return ((timestamp - twepoch) << timestampLeftShift) //
-                | (datacenterId << datacenterIdShift) //
-                | (workerId << workerIdShift) //
+        return ((timestamp - twepoch) << timestampLeftShift)
+                | (datacenterId << datacenterIdShift)
+                | (workerId << workerIdShift)
                 | sequence;
     }
 
@@ -195,15 +155,4 @@ class SnowflakeIdWorker {
         return System.currentTimeMillis();
     }
 
-    //==============================Test=============================================
-    /** 测试
-    public static void main(String[] args) {
-        SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0, 0);
-        for (int i = 0; i < 1000; i++) {
-            long id = idWorker.nextId();
-            System.out.println(Long.toBinaryString(id));
-            System.out.println(id);
-        }
-    }
-    */
 }

@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface IEmployeeService extends IService<Employee> {
 
-
+    List<Employee> queryEmployeeByBankId(Long id);
 }

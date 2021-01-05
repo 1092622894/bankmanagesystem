@@ -18,7 +18,7 @@ public class Client implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String id;
+    private Long id;
 
     /**
      * 客户姓名
@@ -36,9 +36,14 @@ public class Client implements Serializable {
     private String address;
 
     /**
+     * 身份证号码
+     */
+    private String identifyCard;
+
+    /**
      * contacts表主键id
      */
-    private String cId;
+    private Long cId;
 
 
 }

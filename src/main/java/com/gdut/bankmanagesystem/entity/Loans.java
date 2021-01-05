@@ -42,6 +42,4 @@ public class Loans implements Serializable {
      * 未还款金额
      */
     private BigDecimal remainAmount;
-
-
 }
