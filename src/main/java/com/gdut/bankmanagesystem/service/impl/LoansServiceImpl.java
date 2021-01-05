@@ -1,5 +1,6 @@
 package com.gdut.bankmanagesystem.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.gdut.bankmanagesystem.common.exception.CustomException;
 import com.gdut.bankmanagesystem.entity.Account;
@@ -68,7 +69,7 @@ public class LoansServiceImpl extends ServiceImpl<LoansMapper, Loans> implements
         loan.setAmount(amount);
         loansMapper.updateById(loan);
 
-        log.info("给id：{}贷款账户打钱!", loan.getAId());
+        log.info("给id：{}贷款账户打钱!", order.getAId());
         Account account = assertExistAccount(order.getAId());
         BigDecimal balance = account.getBalance();
         balance = balance.add(order.getSum());

@@ -48,15 +48,18 @@ public class RepayServiceImpl extends ServiceImpl<RepayMapper, Repay> implements
         //2、断言有足够余额还款
         BigDecimal remainBalance = assertEnoughAmount(account.getBalance(), repay.getRepayAmount());
         UpdateWrapper<Account> updateAccount = new UpdateWrapper<>();
-        updateAccount.eq("id", loan.getAId()).eq("balance", account.getBalance());
+        updateAccount.eq("id", loan.getAId())
+                .eq("balance", account.getBalance());
         account.setBalance(remainBalance);
         accountMapper.update(account, updateAccount);
 
         log.info("从id：{}贷款单中减掉还款金额！", loan.getId());
         //3、贷款单中减掉还款金额
         BigDecimal remainAmount = assertRightRepay(loan.getRemainAmount(), repay.getRepayAmount());
+        log.info("remainAmount:{}", remainAmount);
         UpdateWrapper<Loans> updateLoan = new UpdateWrapper<>();
-        updateLoan.eq("id", loan.getId()).eq("remainAmount", loan.getRemainAmount());
+        updateLoan.eq("id", loan.getId())
+                .eq("remain_amount", loan.getRemainAmount());
         loan.setRemainAmount(remainAmount);
         loansMapper.update(loan, updateLoan);
 
@@ -115,7 +118,7 @@ public class RepayServiceImpl extends ServiceImpl<RepayMapper, Repay> implements
             log.warn("还款过多");
             throw new CustomException("还款过多！");
         }
-        return remainAmount.subtract(remainAmount);
+        return remainAmount.subtract(repayAmount);
     }
 
 }
