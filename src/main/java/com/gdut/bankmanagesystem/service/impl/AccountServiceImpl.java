@@ -86,6 +86,7 @@ public class AccountServiceImpl extends ServiceImpl<AccountMapper, Account> impl
         account.setBalance(BigDecimal.ZERO);
         account.setStatus(Constants.ACCOUNT_STATUS_NOT_ISSUED);
         account.setBId(applyAccountDTO.getBId());
+        account.setType(applyAccountDTO.getAccountType());
         account.setCId(applyAccountDTO.getCId());
         if (Constants.SAVING_ACCOUNT.equals(applyAccountDTO.getAccountType())) {
             account.setInterestRate(new BigDecimal(0.12));

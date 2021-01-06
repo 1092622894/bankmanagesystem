@@ -57,7 +57,7 @@ public class ClientController {
      */
     @GetMapping("/delete/{id}")
     @Role(value = Constants.EMPLOYEE_ROLE)
-    public JSONResponse deleteClient(@PathVariable Integer id) {
+    public JSONResponse deleteClient(@PathVariable("id") Long id) {
         Boolean result = clientService.deleteClientById(id);
         return result ? JSONResponse.success("删除成功") : JSONResponse.fail("删除失败，请重试");
     }

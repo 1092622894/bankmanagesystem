@@ -46,11 +46,6 @@ public class Employee implements Serializable {
     private Timestamp entryTime;
 
     /**
-     * 角色（普通员工0/ 部门经理1）
-     */
-    private int role;
-
-    /**
      * 部门id
      */
     private Long dId;
@@ -93,14 +88,6 @@ public class Employee implements Serializable {
 
     public void setEntryTime(Timestamp entryTime) {
         this.entryTime = entryTime;
-    }
-
-    public int getRole() {
-        return role;
-    }
-
-    public void setRole(int role) {
-        this.role = role;
     }
 
     public Long getdId() {

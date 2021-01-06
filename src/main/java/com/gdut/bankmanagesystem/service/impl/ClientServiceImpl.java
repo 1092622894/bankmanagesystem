@@ -23,10 +23,7 @@ import org.springframework.util.Assert;
 import org.springframework.util.DigestUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -81,7 +78,7 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
     }
 
     @Override
-    public Boolean deleteClientById(Integer id) {
+    public Boolean deleteClientById(Long id) {
         return Constants.DELETE_SUCCESS.equals(userMapper.deleteById(id));
     }
 
@@ -114,9 +111,18 @@ public class ClientServiceImpl extends ServiceImpl<ClientMapper, Client> impleme
                 continue;
             }
             set.add(account.getCId());
+            Map<String, Object> map = new HashMap<>();
+            map.put("c_id", account.getCId());
+            List<User> users = userMapper.selectByMap(map);
+            if (users.size() == 0) {
+                continue;
+
+
+
+            }
             Client client = clientMapper.selectById(account.getCId());
             Contacts contacts = contactsMapper.selectById(client.getCId());
-            result.add(new ListClientVO(client.getId(), client.getName(), client.getPhone(),
+            result.add(new ListClientVO(users.get(0).getId(), client.getId(), client.getName(), client.getPhone(),
                     client.getAddress(), client.getIdentifyCard(), client.getCId(), contacts.getName(),
                     contacts.getPhone(), contacts.getEmail(), contacts.getRelation()));
         }

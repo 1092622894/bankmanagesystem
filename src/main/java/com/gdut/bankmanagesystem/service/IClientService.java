@@ -32,7 +32,7 @@ public interface IClientService extends IService<Client> {
      * @param id 用户id
      * @return 删除是否成功
      */
-    Boolean deleteClientById(Integer id);
+    Boolean deleteClientById(Long id);
 
     /**
      * 修改客户信息及联系人信息

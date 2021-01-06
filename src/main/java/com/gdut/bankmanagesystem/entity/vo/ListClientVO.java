@@ -20,6 +20,8 @@ import lombok.ToString;
 @AllArgsConstructor
 public class ListClientVO {
 
+    private Integer userId;
+
     private Long id;
 
     /**

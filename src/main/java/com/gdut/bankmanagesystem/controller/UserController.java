@@ -1,6 +1,7 @@
 package com.gdut.bankmanagesystem.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.gdut.bankmanagesystem.common.Constants;
 import com.gdut.bankmanagesystem.common.anno.JwtTokenIgnore;
 import com.gdut.bankmanagesystem.entity.JSONResponse;
 import com.gdut.bankmanagesystem.entity.User;
@@ -59,7 +60,10 @@ public class UserController {
         User result = userService.login(user);
         String sign = jwtUtil.sign(JSON.toJSONString(new JwtTokenDTO(result.getId(), result.getRole())));
         Object userMessage = userService.getUserMessage(result);
-        Long bankId = userService.getBankId(userMessage);
-        return JSONResponse.success("登录成功", new LoginVo(sign, userMessage, bankId));
+        if (Constants.EMPLOYEE_ROLE.equals(result.getRole().toString()) && Constants.MANAGER_ROLE.equals(result.getRole().toString())) {
+            Long bankId = userService.getBankId(userMessage);
+            return JSONResponse.success("登录成功", new LoginVo(sign, userMessage, bankId));
+        }
+        return JSONResponse.success("登录成功", new LoginVo(sign, userMessage));
     }
 }

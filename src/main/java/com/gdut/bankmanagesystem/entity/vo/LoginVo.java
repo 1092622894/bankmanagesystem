@@ -19,4 +19,9 @@ public class LoginVo {
     private Object user;
     private Long bankId;
 
+    public LoginVo(String token, Object user) {
+        this.token = token;
+        this.user = user;
+    }
+
 }
